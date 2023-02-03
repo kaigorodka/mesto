@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Место</title>
+    <link rel="stylesheet" href="pages/index.css" />
+  </head>
+
+  <body class="page">
+    <header class="header">
+      <img src="images/Vector.svg" alt="Лого" class="header__logo" />
+      <hr class="line" />
+    </header>
+    <main>
+      <section class="profile">
+        <div class="profile__alignment">
+          <div class="avatar">
+            <img src="images/image.jpg" alt="Аватар" class="avatar__image" />
+          </div>
+          <div class="profile-info">
+            <div class="profile__row-alignment">
+              <h1 class="profile__name">Жак-Ив Кусто</h1>
+              <form action="/">
+                <button class="edit-button" type="button">
+                  <img
+                    src="images/Edit Button (1).svg"
+                    alt="Редактировать"
+                    class="edit-button__icon"
+                  />
+                </button>
+              </form>
+            </div>
+            <h2 class="profile__status">Исследователь океана</h2>
+          </div>
+        </div>
+        <form class="profile-form" action="/">
+          <button class="add-button">
+            <img
+              src="images/Vector (3).svg"
+              alt="Добавить"
+              class="add-button__icon"
+            />
+          </button>
+        </form>
+      </section>
+      <section class="elements">
+        <div class="element">
+          <img
+            src="images/kirill-pershin-1088404-unsplash.jpg"
+            alt="Карачаевск"
+            class="element__image"
+          />
+          <div class="element__white-part">
+            <h2 class="element__title">Карачаевск</h2>
+            <form action="/">
+              <button class="like-button">
+                <img
+                  src="images/Vector (2).svg"
+                  alt="Нравится"
+                  class="like-button__icon"
+                />
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="element">
+          <img
+            src="images/2019-06-26.jpg"
+            alt="Пирамида Хеопса"
+            class="element__image"
+          />
+          <div class="element__white-part">
+            <h2 class="element__title">Пирамида Хеопса</h2>
+            <form action="/">
+              <button class="like-button">
+                <img
+                  src="images/Vector (2).svg"
+                  alt="Нравится"
+                  class="like-button__icon"
+                />
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="element">
+          <img
+            src="images/unnamed.jpg"
+            alt="Стоунхедж"
+            class="element__image"
+          />
+          <div class="element__white-part">
+            <h2 class="element__title">Стоунхедж</h2>
+            <form action="/">
+              <button class="like-button">
+                <img src="images/Vector (2).svg" alt="Нравится" />
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="element">
+          <img
+            src="images/kirill-pershin-1404681-unsplash.jpg"
+            alt="Гора Эльбрус"
+            class="element__image"
+          />
+          <div class="element__white-part">
+            <h2 class="element__title">Гора Эльбрус</h2>
+            <form action="/">
+              <button class="like-button">
+                <img
+                  src="images/Vector (2).svg"
+                  alt="Нравится"
+                  class="like-button__icon"
+                />
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="element">
+          <img
+            src="images/kirill-pershin-1556355-unsplash.jpg"
+            alt="Домбай"
+            class="element__image"
+          />
+          <div class="element__white-part">
+            <h2 class="element__title">Домбай</h2>
+            <form action="/">
+              <button class="like-button">
+                <img
+                  src="images/Vector (2).svg"
+                  alt="Нравится"
+                  class="like-button__icon"
+                />
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class="element">
+          <img
+            src="images/hd_fd1bc494936287c201be0be558b8bc69.jpg"
+            alt="Колизей"
+            class="element__image"
+          />
+          <div class="element__white-part">
+            <h2 class="element__title">Колизей</h2>
+            <form action="/">
+              <button class="like-button">
+                <img
+                  src="images/Vector (2).svg"
+                  alt="Нравится"
+                  class="like-button__icon"
+                />
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+      <section class="popup">
+        <div class="popup__container">
+          <form action="/">
+            <button class="close-icon" type="reset">
+              <img
+                src="images/Close Icon.svg"
+                alt="Закрыть"
+                class="close-icon__img"
+              />
+            </button>
+          </form>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <form name="container-data" class="container-data" action="/">
+            <input
+              type="text"
+              class="popup__name"
+              name="username"
+              value="Жак-Ив Кусто"
+              required
+              placeholder="Имя"
+            />
+            <hr class="line" />
+            <input
+              type="text"
+              name="user-specialty"
+              value="Исследователь океана"
+              required
+              placeholder="О себе"
+              class="popup__status"
+            />
+            <hr class="line" />
+            <button class="popup__save-button" type="submit">Сохранить</button>
+          </form>
+        </div>
+      </section>
+    </main>
+    <footer class="footer">© 2020 Кайгородов Иван</footer>
+    <script src="index.js"></script>
+  </body>
+</html>

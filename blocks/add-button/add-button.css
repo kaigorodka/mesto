@@ -1,0 +1,15 @@
+.add-button {
+  background-color: transparent;
+  border: 2px solid white;
+  padding: 0;
+  width: 9.5em;
+}
+.add-button:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+@media screen and (max-width: 896px) {
+  .add-button {
+    width: 17.6em;
+  }
+}

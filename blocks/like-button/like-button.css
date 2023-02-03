@@ -1,0 +1,15 @@
+.like-button {
+  max-width: 22px;
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: white;
+}
+.like-button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}
+.like-button:active {
+  fill: black;
+  color: black;
+}
