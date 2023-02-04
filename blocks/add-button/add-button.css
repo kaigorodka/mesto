@@ -3,6 +3,8 @@
   border: 2px solid white;
   padding: 0;
   width: 9.5em;
+  max-height: 53.5px;
+  border-radius: 2px;
 }
 .add-button:hover {
   cursor: pointer;
@@ -11,5 +13,6 @@
 @media screen and (max-width: 896px) {
   .add-button {
     width: 17.6em;
+    margin-top: 36px;
   }
 }

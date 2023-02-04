@@ -6,43 +6,35 @@
     <title>Место</title>
     <link rel="stylesheet" href="pages/index.css" />
   </head>
-
   <body class="page">
     <header class="header">
       <img src="images/Vector.svg" alt="Лого" class="header__logo" />
-      <hr class="line" />
     </header>
     <main>
       <section class="profile">
         <div class="profile__alignment">
-          <div class="avatar">
-            <img src="images/image.jpg" alt="Аватар" class="avatar__image" />
-          </div>
+          <img src="images/image.jpg" alt="Аватар" class="profile__image" />
           <div class="profile-info">
             <div class="profile__row-alignment">
               <h1 class="profile__name">Жак-Ив Кусто</h1>
-              <form action="/">
-                <button class="edit-button" type="button">
-                  <img
-                    src="images/Edit_Button(1).svg"
-                    alt="Редактировать"
-                    class="edit-button__icon"
-                  />
-                </button>
-              </form>
+              <button class="edit-button" type="button">
+                <img
+                  src="images/Edit_Button(1).svg"
+                  alt="Редактировать"
+                  class="edit-button__icon"
+                />
+              </button>
             </div>
             <h2 class="profile__status">Исследователь океана</h2>
           </div>
         </div>
-        <form class="profile-form" action="/">
-          <button class="add-button">
-            <img
-              src="images/Vector_(3).svg"
-              alt="Добавить"
-              class="add-button__icon"
-            />
-          </button>
-        </form>
+        <button class="add-button" type="button">
+          <img
+            src="images/Vector_(3).svg"
+            alt="Добавить"
+            class="add-button__icon"
+          />
+        </button>
       </section>
       <section class="elements">
         <div class="element">
@@ -53,15 +45,13 @@
           />
           <div class="element__white-part">
             <h2 class="element__title">Карачаевск</h2>
-            <form action="/">
-              <button class="like-button">
-                <img
-                  src="images/Vector_(2).svg"
-                  alt="Нравится"
-                  class="like-button__icon"
-                />
-              </button>
-            </form>
+            <button class="like-button" type="button">
+              <img
+                src="images/Vector_(2).svg"
+                alt="Нравится"
+                class="like-button__icon"
+              />
+            </button>
           </div>
         </div>
         <div class="element">
@@ -72,15 +62,14 @@
           />
           <div class="element__white-part">
             <h2 class="element__title">Пирамида Хеопса</h2>
-            <form action="/">
-              <button class="like-button">
-                <img
-                  src="images/Vector_(2).svg"
-                  alt="Нравится"
-                  class="like-button__icon"
-                />
-              </button>
-            </form>
+
+            <button class="like-button" type="button">
+              <img
+                src="images/Vector_(2).svg"
+                alt="Нравится"
+                class="like-button__icon"
+              />
+            </button>
           </div>
         </div>
         <div class="element">
@@ -91,11 +80,13 @@
           />
           <div class="element__white-part">
             <h2 class="element__title">Стоунхедж</h2>
-            <form action="/">
-              <button class="like-button">
-                <img src="images/Vector_(2).svg" alt="Нравится" />
-              </button>
-            </form>
+            <button class="like-button" type="button">
+              <img
+                src="images/Vector_(2).svg"
+                alt="Нравится"
+                class="like-button__icon"
+              />
+            </button>
           </div>
         </div>
         <div class="element">
@@ -106,15 +97,14 @@
           />
           <div class="element__white-part">
             <h2 class="element__title">Гора Эльбрус</h2>
-            <form action="/">
-              <button class="like-button">
-                <img
-                  src="images/Vector_(2).svg"
-                  alt="Нравится"
-                  class="like-button__icon"
-                />
-              </button>
-            </form>
+
+            <button class="like-button" type="button">
+              <img
+                src="images/Vector_(2).svg"
+                alt="Нравится"
+                class="like-button__icon"
+              />
+            </button>
           </div>
         </div>
         <div class="element">
@@ -125,15 +115,13 @@
           />
           <div class="element__white-part">
             <h2 class="element__title">Домбай</h2>
-            <form action="/">
-              <button class="like-button">
-                <img
-                  src="images/Vector_(2).svg"
-                  alt="Нравится"
-                  class="like-button__icon"
-                />
-              </button>
-            </form>
+            <button class="like-button" type="button">
+              <img
+                src="images/Vector_(2).svg"
+                alt="Нравится"
+                class="like-button__icon"
+              />
+            </button>
           </div>
         </div>
         <div class="element">
@@ -144,56 +132,49 @@
           />
           <div class="element__white-part">
             <h2 class="element__title">Колизей</h2>
-            <form action="/">
-              <button class="like-button">
-                <img
-                  src="images/Vector_(2).svg"
-                  alt="Нравится"
-                  class="like-button__icon"
-                />
-              </button>
-            </form>
-          </div>
-        </div>
-      </section>
-      <section class="popup">
-        <div class="popup__container">
-          <form action="/">
-            <button class="close-icon" type="reset">
+            <button class="like-button" type="button">
               <img
-                src="images/Close_Icon.svg"
-                alt="Закрыть"
-                class="close-icon__img"
+                src="images/Vector_(2).svg"
+                alt="Нравится"
+                class="like-button__icon"
               />
             </button>
-          </form>
-          <h2 class="popup__title">Редактировать профиль</h2>
-          <form name="container-data" class="container-data" action="/">
-            <input
-              type="text"
-              class="popup__name"
-              maxlength="21"
-              name="username"
-              value="Жак-Ив Кусто"
-              required
-              placeholder="Имя"
-            />
-            <hr class="line" />
-            <input
-              type="text"
-              name="user-specialty"
-              value="Исследователь океана"
-              required
-              placeholder="О себе"
-              class="popup__status"
-            />
-            <hr class="line" />
-            <button class="popup__save-button" type="submit">Сохранить</button>
-          </form>
+          </div>
         </div>
       </section>
     </main>
     <footer class="footer">© 2023 Кайгородов Иван</footer>
+    <div class="popup">
+      <div class="popup__container">
+        <button class="close-icon" type="button">
+          <img
+            src="images/Close_Icon.svg"
+            alt="Закрыть"
+            class="close-icon__img"
+          />
+        </button>
+        <h2 class="popup__title">Редактировать профиль</h2>
+        <form name="popup__form" class="popup__form" action="/">
+          <input
+            type="text"
+            class="popup__input popup__input_type_name"
+            name="username"
+            value="Жак-Ив Кусто"
+            required
+            placeholder="Имя"
+          />
+          <input
+            type="text"
+            name="user-specialty"
+            value="Исследователь океана"
+            required
+            placeholder="О себе"
+            class="popup__input popup__input_type_status"
+          />
+          <button class="popup__save-button" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
     <script src="index.js"></script>
   </body>
 </html>

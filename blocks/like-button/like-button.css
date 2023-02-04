@@ -6,10 +6,6 @@
   background-color: white;
 }
 .like-button:hover {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: pointer;
-}
-.like-button:active {
-  fill: black;
-  color: black;
 }

@@ -7,6 +7,11 @@
   color: #ffffff;
   margin: 0;
   padding-right: 18px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+
+  max-width: 400px;
 }
 
 @media screen and (max-width: 502px) {
@@ -15,5 +20,6 @@
     line-height: 26px;
     text-align: center;
     padding-right: 10px;
+    max-width: 190px;
   }
 }
