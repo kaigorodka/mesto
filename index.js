@@ -5,8 +5,8 @@ let profileName = document.querySelector(".profile__name");
 let profileStatus = document.querySelector(".profile__status");
 function openClassAdd() {
   popup.classList.add("popup_opened");
-  profileName.textContent = nameValue;
-  profileStatus.textContent = statusValue;
+  popupName.value = profileName.textContent;
+  popupStatus.value = profileStatus.textContent;
 }
 editButton.addEventListener("click", openClassAdd);
 
