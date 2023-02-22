@@ -1,8 +1,8 @@
-let popup = document.querySelector(".popup");
-let editButton = document.querySelector(".edit-button");
-let closeIcon = document.querySelector(".close-icon");
-let profileName = document.querySelector(".profile__name");
-let profileStatus = document.querySelector(".profile__status");
+const popup = document.querySelector(".popup");
+const editButton = document.querySelector(".edit-button");
+const closeIcon = document.querySelector(".close-icon");
+const profileName = document.querySelector(".profile__name");
+const profileStatus = document.querySelector(".profile__status");
 function openClassAdd() {
   popup.classList.add("popup_opened");
   popupName.value = profileName.textContent;
@@ -14,10 +14,10 @@ function openClassRemove() {
 }
 closeIcon.addEventListener("click", openClassRemove);
 
-let popupNewItem = document.querySelector(".popup_new-item");
-let newItemEditButton = popupNewItem.querySelector(".edit-button");
-let newItemCloseIcon = popupNewItem.querySelector(".close-icon");
-let addButton = document.querySelector(".add-button");
+const popupNewItem = document.querySelector(".popup_new-item");
+const newItemEditButton = popupNewItem.querySelector(".edit-button");
+const newItemCloseIcon = popupNewItem.querySelector(".close-icon");
+const addButton = document.querySelector(".add-button");
 
 function openClassRemoveNewItem() {
   popupNewItem.classList.remove("popup_opened");
@@ -40,16 +40,6 @@ function handleFormSubmit(evt) {
   openClassRemove();
 }
 popupForm.addEventListener("submit", handleFormSubmit);
-
-let likeButtonIcon = document.querySelectorAll(".like-button__icon");
-console.log(likeButtonIcon);
-let likeButton = document.querySelectorAll(".like-button");
-console.log(likeButton);
-
-function likeButtonSwitch() {
-  likeButtonIcon.classList.toggle("like-button__icon_active");
-}
-likeButton.addEventListener("click", likeButtonSwitch);
 
 const initialCards = [
   {
@@ -77,3 +67,47 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
+const template = document.querySelector("#new-card").content;
+const elements = document.querySelector(".elements");
+const newCard = ({ name, link }) => {
+  const element = template.querySelector(".element").cloneNode(true);
+  const trash = element.querySelector(".trash-button");
+  const elementTitle = element.querySelector(".element__title");
+  const elementImage = element.querySelector(".element__image");
+  const likeButtonIcon = element.querySelector(".like-button__icon");
+  const likeButton = element.querySelector(".like-button");
+  elementTitle.textContent = name;
+  elementImage.src = link;
+  elementImage.alt = name;
+  elements.append(element);
+  // лайк
+  likeButton.addEventListener("click", function () {
+    likeButtonIcon.classList.toggle("like-button__icon_active");
+  });
+  // удаление
+  trash.addEventListener("click", function () {
+    element.remove();
+  });
+};
+// все карточки
+const addInitialCards = initialCards.forEach((name, link) => {
+  newCard(name, link);
+});
+
+const newPopupForm = popupNewItem.querySelector(".popup__form");
+const newPopupName = newPopupForm.querySelector(".popup__input_type_name");
+const newPopupStatus = newPopupForm.querySelector(".popup__input_type_status");
+const elementTitle = document.querySelector(".element__title");
+const elementImage = document.querySelector(".element__image");
+
+function handleClosingFormNewItemPopup(evt) {
+  evt.preventDefault();
+  const newNameValue = newPopupName.value;
+  const newStatusValue = newPopupStatus.value;
+  elementTitle.textContent = newNameValue;
+  elementImage.src = newStatusValue;
+  newCard({ name, link });
+  openClassRemoveNewItem();
+}
+
+newPopupForm.addEventListener("submit", handleClosingFormNewItemPopup);
