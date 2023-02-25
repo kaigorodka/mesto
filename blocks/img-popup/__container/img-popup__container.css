@@ -1,0 +1,6 @@
+.img-popup__container{
+    position: fixed;
+  top: 15.8%;
+  left: 50%;
+  transform: translate(-50%);
+}
