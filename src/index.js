@@ -1,13 +1,14 @@
 // переменные редактирования профиля
 const popupEditProfile = document.querySelector(".popup_edit-profile");
 const popupEditContainer = popupEditProfile.querySelector(".popup__container");
-const editButton = document.querySelector(".edit-button");
-const closeIcon = popupEditContainer.querySelector(".close-icon");
+const buttonOpenEditProfileForm = document.querySelector(".edit-button");
+const buttonCloseEditProfileForm =
+  popupEditContainer.querySelector(".close-icon");
 const profileName = document.querySelector(".profile__name");
 const profileStatus = document.querySelector(".profile__status");
-const popupForm = popupEditProfile.querySelector(".popup__form");
-const popupName = popupForm.querySelector(".popup__input_type_name");
-const popupStatus = popupForm.querySelector(".popup__input_type_status");
+const formEditProfile = popupEditProfile.querySelector(".popup__form");
+const popupName = formEditProfile.querySelector(".popup__input_type_name");
+const popupStatus = formEditProfile.querySelector(".popup__input_type_status");
 //функции открытия и закрытия ВСЕХ попапов
 function openPopup(popup) {
   popup.classList.add("popup_opened");
@@ -16,13 +17,13 @@ function closePopup(popup) {
   popup.classList.remove("popup_opened");
 }
 //функция открытия попапа редактирования профиля
-function openClassAdd() {
+function openEditProfilePopup() {
   openPopup(popupEditProfile);
   popupName.value = profileName.textContent;
   popupStatus.value = profileStatus.textContent;
 }
 // обработчик попапа создания новой карточки
-function handleFormSubmit(evt) {
+function submitEditProfilePopup(evt) {
   evt.preventDefault();
   const nameValue = popupName.value;
   const statusValue = popupStatus.value;
@@ -31,9 +32,9 @@ function handleFormSubmit(evt) {
   closePopup(popupEditProfile);
 }
 // слушатели открытия,закрытия и сохранения попапа редактирования профиля
-popupForm.addEventListener("submit", handleFormSubmit);
-editButton.addEventListener("click", openClassAdd);
-closeIcon.addEventListener("click", () => {
+formEditProfile.addEventListener("submit", submitEditProfilePopup);
+buttonOpenEditProfileForm.addEventListener("click", openEditProfilePopup);
+buttonCloseEditProfileForm.addEventListener("click", () => {
   closePopup(popupEditProfile);
 });
 
@@ -44,13 +45,13 @@ const popupNewName = popupNewItemForm.querySelector(".popup__input_type_name");
 const popNewStatus = popupNewItemForm.querySelector(
   ".popup__input_type_status"
 );
-const newItemCloseIcon = popupNewItem.querySelector(".close-icon");
-const addButton = document.querySelector(".add-button");
+const buttonCloseAddCardForm = popupNewItem.querySelector(".close-icon");
+const buttonOpenAddCardForm = document.querySelector(".add-button");
 //слушатели кнопок попапа добавления карточки
-addButton.addEventListener("click", () => {
+buttonOpenAddCardForm.addEventListener("click", () => {
   openPopup(popupNewItem);
 });
-newItemCloseIcon.addEventListener("click", handleFormCloseIcon);
+buttonCloseAddCardForm.addEventListener("click", closeAddCardForm);
 
 const initialCards = [
   {
@@ -103,7 +104,7 @@ const createCard = ({ name, link }) => {
     pictureTitle.textContent = `${name}`;
     picture.src = elementImage.src;
     picture.alt = `${name}`;
-    imgPopup.classList.add("img-popup_opened");
+    openPopup(imgPopup);
   }
   elementImage.addEventListener("click", openImgPopup);
   // лайк
@@ -126,18 +127,18 @@ const addInitialCards = initialCards.forEach((item) => {
 //удаление попап картинки
 pictureDeleteIcon.addEventListener("click", removePicture);
 function removePicture() {
-  imgPopup.classList.remove("img-popup_opened");
+  closePopup(imgPopup);
 }
-function handleFormCloseIcon() {
+function closeAddCardForm() {
   closePopup(popupNewItem);
   popupNewName.value = "";
   popNewStatus.value = "";
 }
-const newPopupForm = popupNewItem.querySelector(".popup__form");
-const newPopupName = newPopupForm.querySelector(".popup__input_type_name");
-const newPopupStatus = newPopupForm.querySelector(".popup__input_type_status");
+const formAddCard = popupNewItem.querySelector(".popup__form");
+const newPopupName = formAddCard.querySelector(".popup__input_type_name");
+const newPopupStatus = formAddCard.querySelector(".popup__input_type_status");
 
-function handleClosingFormNewItemPopup(evt) {
+function submitAddCardForm(evt) {
   evt.preventDefault();
   const newNameValue = newPopupName.value;
   const newStatusValue = newPopupStatus.value;
@@ -146,4 +147,4 @@ function handleClosingFormNewItemPopup(evt) {
   evt.target.reset();
 }
 
-newPopupForm.addEventListener("submit", handleClosingFormNewItemPopup);
+formAddCard.addEventListener("submit", submitAddCardForm);
