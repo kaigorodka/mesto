@@ -163,7 +163,9 @@ const formElement = document.querySelector(validationConfig.formSelector);
 const inputElement = formElement.querySelector(validationConfig.inputSelector);
 const fieldset = formElement.querySelector(".popup__set");
 const showInputError = (formElement, inputElement, errorMessage) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(
+    `.popup__error_${inputElement.id}-error`
+  );
   inputElement.classList.add("popup__input_type_error");
   errorElement.textContent = errorMessage;
   errorElement.classList.add("popup__error_visible");
@@ -171,7 +173,9 @@ const showInputError = (formElement, inputElement, errorMessage) => {
 
 // Функция, которая удаляет класс с ошибкой
 const hideInputError = (formElement, inputElement) => {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
+  const errorElement = formElement.querySelector(
+    `.popup__error_${inputElement.id}-error`
+  );
   inputElement.classList.remove("popup__input_type_error");
   errorElement.classList.remove("popup__error_visible");
   errorElement.textContent = "";
@@ -212,9 +216,7 @@ const enableValidation = () => {
     formElement.addEventListener("submit", (evt) => {
       evt.preventDefault();
     });
-    const fieldsetList = Array.from(
-      formElement.querySelectorAll(".popup__set")
-    );
+    const fieldsetList = Array.from(document.querySelectorAll(".popup__set"));
     fieldsetList.forEach((fieldset) => {
       setEventListeners(fieldset);
     });
