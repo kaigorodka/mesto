@@ -13,6 +13,7 @@
   height: 2.6em;
   border-radius: 2px;
   border-color: #000000;
+  border-style: solid;
 }
 .popup__save-button:hover {
   opacity: 0.8;
