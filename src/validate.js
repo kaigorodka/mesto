@@ -44,9 +44,9 @@ const isValid = (formElement, inputElement, validationConfig) => {
   }
 };
 // Функция для валидации по каждому символу
-setEventListeners = (formElement, validationConfig) => {
+const setEventListeners = (formElement, validationConfig) => {
   const inputList = Array.from(
-    document.querySelectorAll(validationConfig.inputSelector)
+    formElement.querySelectorAll(validationConfig.inputSelector)
   );
   const buttonElement = formElement.querySelector(
     validationConfig.submitButtonSelector
