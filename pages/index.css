@@ -1,4 +1,5 @@
 @import url(../vendor/normalize.css);
+@import url(../vendor/fonts/fonts.css);
 @import url(../blocks/root/root.css);
 @import url(../blocks/header/header.css);
 @import url(../blocks/line/line.css);
@@ -30,7 +31,6 @@
 
 @import url(../blocks/footer/footer.css);
 
-@import url(../blocks/popup/popup__set/popup__set.css);
 @import url(../blocks/popup/popup.css);
 @import url(../blocks/popup/__container/popup__container.css);
 @import url(../blocks/popup/__save-button/popup__save-button.css);

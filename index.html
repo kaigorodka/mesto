@@ -76,14 +76,13 @@
           />
         </button>
         <h2 class="popup__title">Редактировать профиль</h2>
-        <form name="popup__form" class="popup__form" action="/">
-          <fieldset class="popup__set">
+        <form name="popup__form" class="popup__form" action="/" novalidate>
             <input
             type="text"
             class="popup__input popup__input_type_name"
             id="name"
             name="username"
-            value="Жак-Ив Кусто"
+            value=""
             required
             placeholder="Имя"
             minlength="2"
@@ -93,7 +92,7 @@
             <input
             type="text"
             name="user-specialty"
-            value="Исследователь океана"
+            value=""
             required
             placeholder="О себе"
             class="popup__input popup__input_type_status"
@@ -103,7 +102,6 @@
             />
             <span class="popup__error popup__error_status-error"></span>
             <button class="popup__save-button" type="submit">Сохранить</button>
-          </fieldset>
         </form>
       </div>
     </div>
@@ -116,9 +114,8 @@
             class="close-icon__img"
           />
         </button>
-        <h2 class="popup__title">Новое Место</h2>
-        <form name="popup__form" class="popup__form" action="/">
-          <fieldset class="popup__set">
+        <h2 class="popup__title">Новое место</h2>
+        <form name="popup__form" class="popup__form" action="/" novalidate>
             <input
             type="text"
             class="popup__input popup__input_type_name"
@@ -142,7 +139,6 @@
             />
             <span class="popup__error popup__error_input_url-error"></span>
             <button class="popup__save-button" type="submit">Создать</button>
-          </fieldset>
         </form>
       </div>
     </div>
