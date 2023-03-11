@@ -1,6 +1,5 @@
 //ВАЛИДАЦИЯ ФОРМ
-const formElement = document.querySelector(".popup__form");
-const inputElement = formElement.querySelector(".popup__input");
+
 const showInputError = (
   formElement,
   inputElement,

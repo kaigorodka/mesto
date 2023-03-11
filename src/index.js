@@ -13,7 +13,8 @@ const popupStatus = formEditProfile.querySelector(".popup__input_type_status");
 //функции открытия и закрытия ВСЕХ попапов
 function closePopupAfterEscape(evt) {
   if (evt.key === "Escape") {
-    popup.classList.remove("popup_opened");
+    const popup = document.querySelector(".popup_opened");
+    closePopup(popup);
   }
 }
 function openPopup(popup) {
@@ -33,7 +34,7 @@ function openEditProfilePopup() {
 // слушатель нажатия мимо попапа редактирования профиля
 popupEditProfile.addEventListener("click", (evt) => {
   if (evt.target === popupEditProfile) {
-    popupEditProfile.classList.remove("popup_opened");
+    closePopup(popupEditProfile);
   }
 });
 
@@ -147,6 +148,11 @@ const addInitialCards = initialCards.forEach((item) => {
 });
 //удаление попап картинки
 pictureDeleteIcon.addEventListener("click", removePicture);
+imgPopup.addEventListener("click", (evt) => {
+  if (evt.target === imgPopup) {
+    closePopup(imgPopup);
+  }
+});
 function removePicture() {
   closePopup(imgPopup);
 }
@@ -169,5 +175,6 @@ function submitAddCardForm(evt) {
   closePopup(popupNewItem);
   evt.target.reset();
   popupNewItemSubmitButton.classList.add("popup__save-button_disabled");
+  popupNewItemSubmitButton.setAttribute("disabled", "true");
 }
 formAddCard.addEventListener("submit", submitAddCardForm);

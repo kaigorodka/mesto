@@ -1,16 +1,5 @@
 .img-popup__container {
-  position: fixed;
-  top: 17.8%;
-  left: 50%;
-  transform: translate(-50%);
-}
-@media screen and (max-width: 1280px) {
-  .img-popup__container {
-    top: 18%;
-  }
-}
-@media screen and (max-width: 435px) {
-  .img-popup__container {
-    top: 32.8%;
-  }
+  max-width: 75vw;
+  max-height: 75vh;
+  position: relative;
 }
