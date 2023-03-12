@@ -66,7 +66,7 @@ const buttonOpenAddCardForm = document.querySelector(".add-button");
 //слушатель нажатия мимо попапа создания карточки
 popupNewItem.addEventListener("click", (evt) => {
   if (evt.target === popupNewItem) {
-    popupNewItem.classList.remove("popup_opened");
+    closePopup(popupNewItem);
   }
 });
 //слушатели кнопок попапа добавления карточки
