@@ -1,5 +1,5 @@
 .popup__input {
-  min-width: 358px;
+  width: 100%;
   border: none;
   outline: none;
   font-family: "Inter", "Arial", "Helvetica", "sens-serif";
@@ -20,6 +20,5 @@
 }
 @media screen and (max-width: 550px) {
   .popup__input {
-    min-width: 238px;
   }
 }
