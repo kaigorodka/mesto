@@ -27,10 +27,10 @@ export class FormValidator {
   _isValid = (inputElement) => {
     if (!this._inputElement.validity.valid) {
       // Если поле не проходит валидацию, покажем ошибку
-      _showInputError(inputElement);
+      this._showInputError(inputElement);
     } else {
       // Если проходит, скроем
-      _hideInputError(inputElement);
+      this._hideInputError(inputElement);
     }
   };
   // Функция для валидации по каждому символу
@@ -38,14 +38,18 @@ export class FormValidator {
     const inputList = Array.from(
       this._formElement.querySelectorAll(this._validationConfig.inputSelector)
     );
-    const buttonElement = this._formElement.querySelector(
+    const submitButtonSelector = this._formElement.querySelector(
       this._validationConfig.submitButtonSelector
     );
-    this._toggleButtonState();
+    this._toggleButtonState(inputList, submitButtonSelector);
     inputList.forEach((inputElement) => {
-      inputElement.addEventListener("input", function () {
-        _isValid(inputElement);
-        _toggleButtonState(inputList, buttonElement, validationConfig);
+      inputElement.addEventListener("input", () => {
+        this._isValid(inputElement);
+        this._toggleButtonState(
+          inputList,
+          submitButtonSelector,
+          validationConfig
+        );
       });
     });
   }
@@ -54,20 +58,22 @@ export class FormValidator {
       return !inputElement.validity.valid;
     });
   };
-  _toggleButtonState() {
-    if (this._hasInvalidInput()) {
-      this._disableButton();
+  _toggleButtonState = (inputList, submitButtonSelector) => {
+    if (this._hasInvalidInput(inputList)) {
+      this._disableButton(submitButtonSelector);
     } else {
-      this._deleteDisableButton();
+      this._deleteDisableButton(submitButtonSelector);
     }
-  }
-  _disableButton() {
-    buttonElement.classList.add(inactiveButtonClass);
-    buttonElement.setAttribute("disabled", "disabled");
-  }
-  _deleteDisableButton() {
-    buttonElement.classList.remove(inactiveButtonClass);
-    buttonElement.removeAttribute("disabled");
+  };
+  _disableButton = (submitButtonSelector) => {
+    submitButtonSelector.classList.add(
+      this._validationConfig.inactiveButtonClass
+    );
+    submitButtonSelector.setAttribute("disabled", "disabled");
+  };
+  _deleteDisableButton(submitButtonSelector) {
+    submitButtonSelector.classList.remove(inactiveButtonClass);
+    submitButtonSelector.removeAttribute("disabled");
   }
   enableValidation() {
     this._setEventListeners();
