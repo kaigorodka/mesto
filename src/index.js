@@ -110,42 +110,20 @@ const picture = imgPopupContainer.querySelector(".img-popup__picture");
 const pictureTitle = imgPopupContainer.querySelector(".img-popup__title");
 const pictureDeleteIcon = imgPopupContainer.querySelector(".close-icon");
 
-const createCard = ({ name, link }) => {
-  //заполнение карточки
-  const element = template.querySelector(".element").cloneNode(true);
-  const trash = element.querySelector(".trash-button");
-  const elementTitle = element.querySelector(".element__title");
-  elementTitle.textContent = `${name}`;
-  const elementImage = element.querySelector(".element__image");
-  elementImage.src = `${link}`;
-  const likeButtonIcon = element.querySelector(".like-button__icon");
-  const likeButton = element.querySelector(".like-button");
-  elementImage.alt = `${name}`;
-  // появление попап картинки
-  function openImgPopup() {
-    pictureTitle.textContent = `${name}`;
-    picture.src = `${link}`;
-    picture.alt = `${name}`;
-    openPopup(imgPopup);
-  }
-  elementImage.addEventListener("click", openImgPopup);
-  // лайк
-  likeButton.addEventListener("click", function () {
-    likeButtonIcon.classList.toggle("like-button__icon_active");
-  });
-  // удаление
-  trash.addEventListener("click", function () {
-    element.remove();
-  });
-  return element;
-};
-function addCard({ name, link }) {
-  elements.prepend(createCard({ name, link }));
+// появление попап картинки
+function openImgPopup(name, link) {
+  pictureTitle.textContent = name;
+  picture.src = link;
+  picture.alt = name;
+  openPopup(imgPopup);
 }
-// все карточки
-const addInitialCards = initialCards.forEach((item) => {
-  addCard(item);
-});
+
+function addCard({ name, link }) {
+  const card = new Card({ name, link }, "#new-card", openImgPopup);
+  const cardElement = card.generateCard();
+  elements.prepend(cardElement);
+}
+
 //удаление попап картинки
 pictureDeleteIcon.addEventListener("click", removePicture);
 imgPopup.addEventListener("click", (evt) => {
@@ -178,3 +156,26 @@ function submitAddCardForm(evt) {
   popupNewItemSubmitButton.setAttribute("disabled", "true");
 }
 formAddCard.addEventListener("submit", submitAddCardForm);
+
+initialCards.forEach((item) => {
+  const card = new Card(item, "#new-card", openImgPopup);
+  const cardElement = card.generateCard();
+  document.querySelector(".elements").append(cardElement);
+});
+
+const validationConfig = {
+  formSelector: ".popup__form",
+  inputSelector: ".popup__input",
+  submitButtonSelector: ".popup__save-button",
+  inactiveButtonClass: "popup__save-button_disabled",
+  inputErrorClass: "popup__input_type_error",
+  errorClass: "popup__error_visible",
+};
+
+const validationEditForm = new FormValidator(validationConfig, formEditProfile);
+validationEditForm.enableValidation(validationConfig);
+
+const validationAddCardForm = new FormValidator(validationConfig, formAddCard);
+validationAddCardForm.enableValidation(validationConfig);
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
