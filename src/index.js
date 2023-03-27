@@ -176,6 +176,6 @@ const validationEditForm = new FormValidator(validationConfig, formEditProfile);
 validationEditForm.enableValidation(validationConfig);
 
 const validationAddCardForm = new FormValidator(validationConfig, formAddCard);
-validationAddCardForm.enableValidation(validationConfig);
+validationAddCardForm.enableValidation();
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
