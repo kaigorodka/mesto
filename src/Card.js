@@ -12,11 +12,16 @@ export class Card {
       .cloneNode(true);
     return cardElement;
   }
+  _getElementImage() {
+    const elementImage = this._element.querySelector(".element__image");
+    return elementImage;
+  }
   generateCard() {
     this._element = this._getTemplate();
+    this._elementImage = this._getElementImage();
     this._setEventListeners();
-    this._element.querySelector(".element__image").src = this._link;
-    this._element.querySelector(".element__image").alt = this._name;
+    this._elementImage.src = this._link;
+    this._elementImage.alt = this._name;
     this._element.querySelector(".element__title").textContent = this._name;
     return this._element;
   }
@@ -27,11 +32,9 @@ export class Card {
         this._handleLikeClick();
       });
 
-    this._element
-      .querySelector(".element__image")
-      .addEventListener("click", () => {
-        this._openImgPopup(this._name, this._link);
-      });
+    this._elementImage.addEventListener("click", () => {
+      this._openImgPopup(this._name, this._link);
+    });
     this._element
       .querySelector(".trash-button")
       .addEventListener("click", () => {

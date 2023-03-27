@@ -1,3 +1,5 @@
+import { Card } from "./Card.js";
+import { FormValidator } from "./FormValidator.js";
 // переменные редактирования профиля
 const popupEditProfile = document.querySelector(".popup_edit-profile");
 const popupEditContainer = popupEditProfile.querySelector(".popup__container");
@@ -117,11 +119,13 @@ function openImgPopup(name, link) {
   picture.alt = name;
   openPopup(imgPopup);
 }
-
-function addCard({ name, link }) {
-  const card = new Card({ name, link }, "#new-card", openImgPopup);
+function createCard(item) {
+  const card = new Card(item, "#new-card", openImgPopup);
   const cardElement = card.generateCard();
-  elements.prepend(cardElement);
+  return cardElement;
+}
+function addCard(item) {
+  elements.prepend(createCard(item));
 }
 
 //удаление попап картинки
@@ -152,15 +156,12 @@ function submitAddCardForm(evt) {
   addCard({ name: newNameValue, link: newStatusValue });
   closePopup(popupNewItem);
   evt.target.reset();
-  popupNewItemSubmitButton.classList.add("popup__save-button_disabled");
-  popupNewItemSubmitButton.setAttribute("disabled", "true");
+  validationAddCardForm.disableSubmitButton();
 }
 formAddCard.addEventListener("submit", submitAddCardForm);
 
 initialCards.forEach((item) => {
-  const card = new Card(item, "#new-card", openImgPopup);
-  const cardElement = card.generateCard();
-  document.querySelector(".elements").append(cardElement);
+  elements.append(createCard(item));
 });
 
 const validationConfig = {
@@ -173,9 +174,7 @@ const validationConfig = {
 };
 
 const validationEditForm = new FormValidator(validationConfig, formEditProfile);
-validationEditForm.enableValidation(validationConfig);
+validationEditForm.enableValidation();
 
 const validationAddCardForm = new FormValidator(validationConfig, formAddCard);
 validationAddCardForm.enableValidation();
-import { Card } from "./Card.js";
-import { FormValidator } from "./FormValidator.js";
