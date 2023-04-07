@@ -1,6 +1,6 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
-import "../pages/index.css";
+import "./pages/index.css";
 import { Section } from "./Section.js";
 import { Popup } from "./Popup.js";
 import { PopupWithImage } from "./PopupWithImage.js";
@@ -167,12 +167,12 @@ const cardList = new Section(
   cardListSelector
 );
 cardList.renderItems();
-
+debugger;
 buttonOpenEditProfileForm.addEventListener("click", () => {
   const newPopup = new Popup(".popup_edit-profile");
   newPopup.open();
   newPopup.setEventListeners();
-  debugger;
+
   const popupWithFormEditProfile = new PopupWithForm(
     ".popup_edit-profile",
     (evt) => {
