@@ -1,5 +1,11 @@
 import { Card } from "./Card.js";
 import { FormValidator } from "./FormValidator.js";
+import "../pages/index.css";
+import { Section } from "./Section.js";
+import { Popup } from "./Popup.js";
+import { PopupWithImage } from "./PopupWithImage.js";
+import { PopupWithForm } from "./PopupWithForm.js";
+import { UserInfo } from "./UserInfo.js";
 // переменные редактирования профиля
 const popupEditProfile = document.querySelector(".popup_edit-profile");
 const popupEditContainer = popupEditProfile.querySelector(".popup__container");
@@ -7,8 +13,8 @@ const buttonOpenEditProfileForm = document.querySelector(".edit-button");
 const buttonCloseEditProfileForm =
   popupEditContainer.querySelector(".close-icon");
 
-const profileName = document.querySelector(".profile__name");
-const profileStatus = document.querySelector(".profile__status");
+export const profileName = document.querySelector(".profile__name");
+export const profileStatus = document.querySelector(".profile__status");
 const formEditProfile = popupEditProfile.querySelector(".popup__form");
 const popupName = formEditProfile.querySelector(".popup__input_type_name");
 const popupStatus = formEditProfile.querySelector(".popup__input_type_status");
@@ -41,16 +47,9 @@ popupEditProfile.addEventListener("click", (evt) => {
 });
 
 // обработчик попапа создания новой карточки
-function submitEditProfilePopup(evt) {
-  evt.preventDefault();
-  const nameValue = popupName.value;
-  const statusValue = popupStatus.value;
-  profileName.textContent = nameValue;
-  profileStatus.textContent = statusValue;
-  closePopup(popupEditProfile);
-}
+
 // слушатели открытия,закрытия и сохранения попапа редактирования профиля
-formEditProfile.addEventListener("submit", submitEditProfilePopup);
+
 buttonOpenEditProfileForm.addEventListener("click", openEditProfilePopup);
 buttonCloseEditProfileForm.addEventListener("click", () => {
   closePopup(popupEditProfile);
@@ -103,7 +102,7 @@ const initialCards = [
     link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
   },
 ];
-const template = document.querySelector("#new-card").content;
+
 const elements = document.querySelector(".elements");
 
 const imgPopup = document.querySelector(".img-popup");
@@ -113,23 +112,12 @@ const pictureTitle = imgPopupContainer.querySelector(".img-popup__title");
 const pictureDeleteIcon = imgPopupContainer.querySelector(".close-icon");
 
 // появление попап картинки
-function openImgPopup(name, link) {
-  pictureTitle.textContent = name;
-  picture.src = link;
-  picture.alt = name;
-  openPopup(imgPopup);
-}
-function createCard(item) {
-  const card = new Card(item, "#new-card", openImgPopup);
-  const cardElement = card.generateCard();
-  return cardElement;
-}
-function addCard(item) {
-  elements.prepend(createCard(item));
+function handleCardClick(name, link) {
+  const imgPopup = new PopupWithImage(".img-popup");
 }
 
 //удаление попап картинки
-pictureDeleteIcon.addEventListener("click", removePicture);
+
 imgPopup.addEventListener("click", (evt) => {
   if (evt.target === imgPopup) {
     closePopup(imgPopup);
@@ -149,20 +137,6 @@ const newPopupStatus = formAddCard.querySelector(".popup__input_type_status");
 const popupNewItemSubmitButton = popupNewItem.querySelector(
   ".popup__save-button"
 );
-function submitAddCardForm(evt) {
-  evt.preventDefault();
-  const newNameValue = newPopupName.value;
-  const newStatusValue = newPopupStatus.value;
-  addCard({ name: newNameValue, link: newStatusValue });
-  closePopup(popupNewItem);
-  evt.target.reset();
-  validationAddCardForm.disableSubmitButton();
-}
-formAddCard.addEventListener("submit", submitAddCardForm);
-
-initialCards.forEach((item) => {
-  elements.append(createCard(item));
-});
 
 const validationConfig = {
   formSelector: ".popup__form",
@@ -178,3 +152,64 @@ validationEditForm.enableValidation();
 
 const validationAddCardForm = new FormValidator(validationConfig, formAddCard);
 validationAddCardForm.enableValidation();
+
+const cardListSelector = ".elements";
+
+const cardList = new Section(
+  {
+    items: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, "#new-card", handleCardClick);
+      const cardElement = card.generateCard();
+      cardList.addItem(cardElement);
+    },
+  },
+  cardListSelector
+);
+cardList.renderItems();
+
+buttonOpenEditProfileForm.addEventListener("click", () => {
+  const newPopup = new Popup(".popup_edit-profile");
+  newPopup.open();
+  newPopup.setEventListeners();
+  debugger;
+  const popupWithFormEditProfile = new PopupWithForm(
+    ".popup_edit-profile",
+    (evt) => {
+      evt.preventDefault();
+      _getInputValues();
+      close();
+      const userInfo = new UserInfo({
+        selectorOfName: ".profile__name",
+        selectorOfStatus: ".profile__status",
+      });
+      userInfo.setUserInfo().name = profileName.textContent;
+      userInfo.setUserInfo().about = profileStatus.textContent;
+      validationEditForm.disableSubmitButton();
+    }
+  );
+  popupWithFormEditProfile.setEventListeners();
+  const userInfo = new UserInfo({
+    selectorOfName: ".profile__name",
+    selectorOfStatus: ".profile__status",
+  });
+  userInfo.getUserInfo().name = popupName.value;
+  userInfo.getUserInfo().about = popupStatus.value;
+});
+
+buttonOpenAddCardForm.addEventListener("click", () => {
+  const newPopup = new Popup(".popup_edit-profile");
+  newPopup.open();
+  newPopup.setEventListeners();
+  const popupWithFormEditProfile = new PopupWithForm(
+    ".popup_edit-profile",
+    (evt) => {
+      evt.preventDefault();
+      _getInputValues({ name, link });
+      cardList.addItem({ name: name, link: link });
+      close();
+      validationEditForm.disableSubmitButton();
+    }
+  );
+  popupWithFormEditProfile.setEventListeners();
+});

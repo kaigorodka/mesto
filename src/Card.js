@@ -1,9 +1,10 @@
 export class Card {
-  constructor(data, templateSelector, openImgPopup) {
+  constructor(data, templateSelector, openImgPopup, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
     this._openImgPopup = openImgPopup;
+    this._handleCardClick = handleCardClick;
   }
   _getTemplate() {
     const cardElement = document
