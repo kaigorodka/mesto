@@ -78,7 +78,6 @@ const validationConfig = {
 const selectorOfImgPopup = ".img-popup";
 function handleCardClick({ name, link }) {
   const newPopupWithImage = new PopupWithImage(selectorOfImgPopup);
-  debugger;
   newPopupWithImage.open({
     name,
     link,
@@ -93,6 +92,10 @@ validationAddCardForm.enableValidation();
 
 const cardListSelector = ".elements";
 
+const userInfo = new UserInfo({
+  nameElement: ".profile__name",
+  statusElement: ".profile__status",
+});
 const cardList = new Section(
   {
     items: initialCards,
@@ -108,7 +111,6 @@ cardList.renderItems();
 
 //открытие попапа редактирования профиля
 buttonOpenEditProfileForm.addEventListener("click", () => {
-  debugger;
   const newPopup = new Popup(".popup_edit-profile");
   newPopup.open();
   newPopup.setEventListeners();
@@ -123,16 +125,8 @@ buttonOpenEditProfileForm.addEventListener("click", () => {
 //то что происхожит при нажатии сабмита формы
 const popupWithFormEditProfile = new PopupWithForm({
   popupSelector: ".popup_edit-profile",
-  callback: () => {
-    debugger;
-    const userInfo = new UserInfo({
-      nameElement: ".profile__name",
-      statusElement: ".profile__status",
-    });
-    userInfo.setUserInfo({
-      name: popupName.value,
-      about: popupStatus.value,
-    });
+  callback: (data) => {
+    userInfo.setUserInfo(data);
     const newPopup = new Popup(".popup_edit-profile");
     newPopup.close();
     validationEditForm.disableSubmitButton();
@@ -151,12 +145,10 @@ const popupNewCard = "#popup_new-item";
 
 const popupWithFormAddCard = new PopupWithForm({
   popupSelector: popupNewCard,
-  callback: ({ link, title }) => {
-    debugger;
-    const data = { link: link, name: title };
+  callback: (data) => {
     const card = new Card({ data, handleCardClick }, "#new-card");
     const cardElement = card.generateCard();
-    cardList.addItem(cardElement);
+    cardList.addItemPreend(cardElement);
     validationEditForm.disableSubmitButton();
   },
 });
