@@ -1,27 +1,37 @@
 import { Popup } from "./Popup";
 export class PopupWithForm extends Popup {
-  constructor(popupSelector, callback) {
-    this._popupSelector = popupSelector;
+  constructor({ popupSelector, callback }) {
+    super(popupSelector);
+    this._form = document
+      .querySelector(popupSelector)
+      .querySelector(".popup__form");
+    this._popupSelector = document.querySelector(popupSelector);
     this._callback = callback;
   }
-  _getInputValues({ name, link }) {
-    const newNameValue = this._popupSelector.querySelector(
-      ".popup__input_type_name"
-    ).value;
-    const newStatusValue = this._popupSelector.querySelector(
-      ".popup__input_type_status"
-    ).value;
-    newNameValue = name;
-    newStatusValue = link;
+  _getInputValues() {
+    // достаём все элементы полей
+    this._inputList = this._popupSelector.querySelectorAll(".popup__input");
+    // создаем пустой объект
+    this._inputsValue = {};
+    //добавляем в этот объект значения всех полей
+    this._inputList.forEach((input) => {
+      this._inputsValue[input.name] = input.value;
+    });
+    return this._inputsValue;
   }
   setEventListeners() {
     super.setEventListeners();
     this._popupSelector
       .querySelector(".popup__form")
-      .addEventListener("submit", this._callback);
+      .addEventListener("submit", (evt) => {
+        debugger;
+        evt.preventDefault();
+        this._callback(this._getInputValues());
+        this.close;
+      });
   }
   close() {
     super.close();
-    evt.target.reset();
+    this._form.reset();
   }
 }

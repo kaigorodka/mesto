@@ -1,9 +1,8 @@
 export class Card {
-  constructor(data, templateSelector, openImgPopup, handleCardClick) {
+  constructor({ data, handleCardClick }, templateSelector) {
     this._name = data.name;
     this._link = data.link;
     this._templateSelector = templateSelector;
-    this._openImgPopup = openImgPopup;
     this._handleCardClick = handleCardClick;
   }
   _getTemplate() {
@@ -34,7 +33,7 @@ export class Card {
       });
 
     this._elementImage.addEventListener("click", () => {
-      this._openImgPopup(this._name, this._link);
+      this._handleCardClick({ name: this._name, link: this._link });
     });
     this._element
       .querySelector(".trash-button")

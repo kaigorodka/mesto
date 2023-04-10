@@ -6,54 +6,17 @@ import { Popup } from "./Popup.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { PopupWithForm } from "./PopupWithForm.js";
 import { UserInfo } from "./UserInfo.js";
+
 // переменные редактирования профиля
 const popupEditProfile = document.querySelector(".popup_edit-profile");
 const popupEditContainer = popupEditProfile.querySelector(".popup__container");
 const buttonOpenEditProfileForm = document.querySelector(".edit-button");
-const buttonCloseEditProfileForm =
-  popupEditContainer.querySelector(".close-icon");
 
 export const profileName = document.querySelector(".profile__name");
 export const profileStatus = document.querySelector(".profile__status");
 const formEditProfile = popupEditProfile.querySelector(".popup__form");
 const popupName = formEditProfile.querySelector(".popup__input_type_name");
 const popupStatus = formEditProfile.querySelector(".popup__input_type_status");
-//функции открытия и закрытия ВСЕХ попапов
-function closePopupAfterEscape(evt) {
-  if (evt.key === "Escape") {
-    const popup = document.querySelector(".popup_opened");
-    closePopup(popup);
-  }
-}
-function openPopup(popup) {
-  popup.classList.add("popup_opened");
-  document.addEventListener("keydown", closePopupAfterEscape);
-}
-function closePopup(popup) {
-  popup.classList.remove("popup_opened");
-  document.removeEventListener("keydown", closePopupAfterEscape);
-}
-//функция открытия попапа редактирования профиля
-function openEditProfilePopup() {
-  openPopup(popupEditProfile);
-  popupName.value = profileName.textContent;
-  popupStatus.value = profileStatus.textContent;
-}
-// слушатель нажатия мимо попапа редактирования профиля
-popupEditProfile.addEventListener("click", (evt) => {
-  if (evt.target === popupEditProfile) {
-    closePopup(popupEditProfile);
-  }
-});
-
-// обработчик попапа создания новой карточки
-
-// слушатели открытия,закрытия и сохранения попапа редактирования профиля
-
-buttonOpenEditProfileForm.addEventListener("click", openEditProfilePopup);
-buttonCloseEditProfileForm.addEventListener("click", () => {
-  closePopup(popupEditProfile);
-});
 
 //переменные попапа добавления карточки
 const popupNewItem = document.querySelector("#popup_new-item");
@@ -62,19 +25,9 @@ const popupNewName = popupNewItemForm.querySelector(".popup__input_type_name");
 const popNewStatus = popupNewItemForm.querySelector(
   ".popup__input_type_status"
 );
-const buttonCloseAddCardForm = popupNewItem.querySelector(".close-icon");
 const buttonOpenAddCardForm = document.querySelector(".add-button");
-//слушатель нажатия мимо попапа создания карточки
-popupNewItem.addEventListener("click", (evt) => {
-  if (evt.target === popupNewItem) {
-    closePopup(popupNewItem);
-  }
-});
+
 //слушатели кнопок попапа добавления карточки
-buttonOpenAddCardForm.addEventListener("click", () => {
-  openPopup(popupNewItem);
-});
-buttonCloseAddCardForm.addEventListener("click", closeAddCardForm);
 
 const initialCards = [
   {
@@ -105,38 +58,14 @@ const initialCards = [
 
 const elements = document.querySelector(".elements");
 
-const imgPopup = document.querySelector(".img-popup");
-const imgPopupContainer = imgPopup.querySelector(".img-popup__container");
-const picture = imgPopupContainer.querySelector(".img-popup__picture");
-const pictureTitle = imgPopupContainer.querySelector(".img-popup__title");
-const pictureDeleteIcon = imgPopupContainer.querySelector(".close-icon");
-
-// появление попап картинки
-function handleCardClick(name, link) {
-  const imgPopup = new PopupWithImage(".img-popup");
-}
-
-//удаление попап картинки
-
-imgPopup.addEventListener("click", (evt) => {
-  if (evt.target === imgPopup) {
-    closePopup(imgPopup);
-  }
-});
-function removePicture() {
-  closePopup(imgPopup);
-}
-function closeAddCardForm() {
-  closePopup(popupNewItem);
-  popupNewName.value = "";
-  popNewStatus.value = "";
-}
 const formAddCard = popupNewItem.querySelector(".popup__form");
 const newPopupName = formAddCard.querySelector(".popup__input_type_name");
 const newPopupStatus = formAddCard.querySelector(".popup__input_type_status");
 const popupNewItemSubmitButton = popupNewItem.querySelector(
   ".popup__save-button"
 );
+const elementImage = document.querySelector(".element__image");
+const elementTitle = document.querySelector(".element__title");
 
 const validationConfig = {
   formSelector: ".popup__form",
@@ -146,7 +75,16 @@ const validationConfig = {
   inputErrorClass: "popup__input_type_error",
   errorClass: "popup__error_visible",
 };
-
+const selectorOfImgPopup = ".img-popup";
+function handleCardClick({ name, link }) {
+  const newPopupWithImage = new PopupWithImage(selectorOfImgPopup);
+  debugger;
+  newPopupWithImage.open({
+    name,
+    link,
+  });
+  newPopupWithImage.setEventListeners();
+}
 const validationEditForm = new FormValidator(validationConfig, formEditProfile);
 validationEditForm.enableValidation();
 
@@ -158,8 +96,8 @@ const cardListSelector = ".elements";
 const cardList = new Section(
   {
     items: initialCards,
-    renderer: (item) => {
-      const card = new Card(item, "#new-card", handleCardClick);
+    renderer: (data) => {
+      const card = new Card({ data, handleCardClick }, "#new-card");
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);
     },
@@ -167,49 +105,59 @@ const cardList = new Section(
   cardListSelector
 );
 cardList.renderItems();
-debugger;
+
+//открытие попапа редактирования профиля
 buttonOpenEditProfileForm.addEventListener("click", () => {
+  debugger;
   const newPopup = new Popup(".popup_edit-profile");
   newPopup.open();
   newPopup.setEventListeners();
-
-  const popupWithFormEditProfile = new PopupWithForm(
-    ".popup_edit-profile",
-    (evt) => {
-      evt.preventDefault();
-      _getInputValues();
-      close();
-      const userInfo = new UserInfo({
-        selectorOfName: ".profile__name",
-        selectorOfStatus: ".profile__status",
-      });
-      userInfo.setUserInfo().name = profileName.textContent;
-      userInfo.setUserInfo().about = profileStatus.textContent;
-      validationEditForm.disableSubmitButton();
-    }
-  );
-  popupWithFormEditProfile.setEventListeners();
   const userInfo = new UserInfo({
-    selectorOfName: ".profile__name",
-    selectorOfStatus: ".profile__status",
+    nameElement: ".profile__name",
+    statusElement: ".profile__status",
   });
-  userInfo.getUserInfo().name = popupName.value;
-  userInfo.getUserInfo().about = popupStatus.value;
+  popupName.value = userInfo.getUserInfo().name;
+  popupStatus.value = userInfo.getUserInfo().about;
 });
 
+//то что происхожит при нажатии сабмита формы
+const popupWithFormEditProfile = new PopupWithForm({
+  popupSelector: ".popup_edit-profile",
+  callback: () => {
+    debugger;
+    const userInfo = new UserInfo({
+      nameElement: ".profile__name",
+      statusElement: ".profile__status",
+    });
+    userInfo.setUserInfo({
+      name: popupName.value,
+      about: popupStatus.value,
+    });
+    const newPopup = new Popup(".popup_edit-profile");
+    newPopup.close();
+    validationEditForm.disableSubmitButton();
+  },
+});
+popupWithFormEditProfile.setEventListeners();
+
+///открытие попапа добавления карточки
 buttonOpenAddCardForm.addEventListener("click", () => {
-  const newPopup = new Popup(".popup_edit-profile");
+  const newPopup = new Popup("#popup_new-item");
   newPopup.open();
   newPopup.setEventListeners();
-  const popupWithFormEditProfile = new PopupWithForm(
-    ".popup_edit-profile",
-    (evt) => {
-      evt.preventDefault();
-      _getInputValues({ name, link });
-      cardList.addItem({ name: name, link: link });
-      close();
-      validationEditForm.disableSubmitButton();
-    }
-  );
-  popupWithFormEditProfile.setEventListeners();
 });
+
+const popupNewCard = "#popup_new-item";
+
+const popupWithFormAddCard = new PopupWithForm({
+  popupSelector: popupNewCard,
+  callback: ({ link, title }) => {
+    debugger;
+    const data = { link: link, name: title };
+    const card = new Card({ data, handleCardClick }, "#new-card");
+    const cardElement = card.generateCard();
+    cardList.addItem(cardElement);
+    validationEditForm.disableSubmitButton();
+  },
+});
+popupWithFormAddCard.setEventListeners();
