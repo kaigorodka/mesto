@@ -6,75 +6,10 @@ import { Popup } from "./Popup.js";
 import { PopupWithImage } from "./PopupWithImage.js";
 import { PopupWithForm } from "./PopupWithForm.js";
 import { UserInfo } from "./UserInfo.js";
+import { validationConfig } from "./validationConfig.js";
+import { initialCards } from "./initialCards.js";
 
-// переменные редактирования профиля
-const popupEditProfile = document.querySelector(".popup_edit-profile");
-const popupEditContainer = popupEditProfile.querySelector(".popup__container");
-const buttonOpenEditProfileForm = document.querySelector(".edit-button");
-
-export const profileName = document.querySelector(".profile__name");
-export const profileStatus = document.querySelector(".profile__status");
-const formEditProfile = popupEditProfile.querySelector(".popup__form");
-const popupName = formEditProfile.querySelector(".popup__input_type_name");
-const popupStatus = formEditProfile.querySelector(".popup__input_type_status");
-
-//переменные попапа добавления карточки
-const popupNewItem = document.querySelector("#popup_new-item");
-const popupNewItemForm = popupNewItem.querySelector(".popup__form");
-const popupNewName = popupNewItemForm.querySelector(".popup__input_type_name");
-const popNewStatus = popupNewItemForm.querySelector(
-  ".popup__input_type_status"
-);
-const buttonOpenAddCardForm = document.querySelector(".add-button");
-
-//слушатели кнопок попапа добавления карточки
-
-const initialCards = [
-  {
-    name: "Архыз",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg",
-  },
-  {
-    name: "Челябинская область",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg",
-  },
-  {
-    name: "Иваново",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg",
-  },
-  {
-    name: "Камчатка",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg",
-  },
-  {
-    name: "Холмогорский район",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg",
-  },
-  {
-    name: "Байкал",
-    link: "https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg",
-  },
-];
-
-const elements = document.querySelector(".elements");
-
-const formAddCard = popupNewItem.querySelector(".popup__form");
-const newPopupName = formAddCard.querySelector(".popup__input_type_name");
-const newPopupStatus = formAddCard.querySelector(".popup__input_type_status");
-const popupNewItemSubmitButton = popupNewItem.querySelector(
-  ".popup__save-button"
-);
-const elementImage = document.querySelector(".element__image");
-const elementTitle = document.querySelector(".element__title");
-
-const validationConfig = {
-  formSelector: ".popup__form",
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save-button",
-  inactiveButtonClass: "popup__save-button_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-};
+// открытие img-popup
 const selectorOfImgPopup = ".img-popup";
 function handleCardClick({ name, link }) {
   const newPopupWithImage = new PopupWithImage(selectorOfImgPopup);
@@ -84,18 +19,24 @@ function handleCardClick({ name, link }) {
   });
   newPopupWithImage.setEventListeners();
 }
+
+//валидация форм
+const formEditProfile = popupEditProfile.querySelector(".popup__form");
 const validationEditForm = new FormValidator(validationConfig, formEditProfile);
 validationEditForm.enableValidation();
 
+const popupNewItem = document.querySelector("#popup_new-item");
+const formAddCard = popupNewItem.querySelector(".popup__form");
 const validationAddCardForm = new FormValidator(validationConfig, formAddCard);
 validationAddCardForm.enableValidation();
-
-const cardListSelector = ".elements";
 
 const userInfo = new UserInfo({
   nameElement: ".profile__name",
   statusElement: ".profile__status",
 });
+
+//рендер всех карточек на странице
+const cardListSelector = ".elements";
 const cardList = new Section(
   {
     items: initialCards,
@@ -110,6 +51,9 @@ const cardList = new Section(
 cardList.renderItems();
 
 //открытие попапа редактирования профиля
+const buttonOpenEditProfileForm = document.querySelector(".edit-button");
+const popupName = formEditProfile.querySelector(".popup__input_type_name");
+const popupStatus = formEditProfile.querySelector(".popup__input_type_status");
 buttonOpenEditProfileForm.addEventListener("click", () => {
   const newPopup = new Popup(".popup_edit-profile");
   newPopup.open();
@@ -134,6 +78,7 @@ const popupWithFormEditProfile = new PopupWithForm({
 });
 popupWithFormEditProfile.setEventListeners();
 
+const buttonOpenAddCardForm = document.querySelector(".add-button");
 ///открытие попапа добавления карточки
 buttonOpenAddCardForm.addEventListener("click", () => {
   const newPopup = new Popup("#popup_new-item");
@@ -141,8 +86,8 @@ buttonOpenAddCardForm.addEventListener("click", () => {
   newPopup.setEventListeners();
 });
 
+//создание карточки
 const popupNewCard = "#popup_new-item";
-
 const popupWithFormAddCard = new PopupWithForm({
   popupSelector: popupNewCard,
   callback: (data) => {
