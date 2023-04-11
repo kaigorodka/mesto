@@ -2,6 +2,9 @@ export class FormValidator {
   constructor(config, formElement) {
     this._config = config;
     this._formElement = formElement;
+    this._submitButton = this._formElement.querySelector(
+      this._config.submitButtonSelector
+    );
   }
 
   //показывает класс с ошибкой
@@ -59,20 +62,13 @@ export class FormValidator {
     }
   };
   disableSubmitButton() {
-    const saveButton = this._formElement.querySelector(
-      this._config.submitButtonSelector
-    );
-    saveButton.classList.add(this._config.inactiveButtonClass);
-    saveButton.setAttribute("disabled", "disabled");
-    return saveButton;
+    this._submitButton.classList.add(this._config.inactiveButtonClass);
+    this._submitButton.setAttribute("disabled", "disabled");
+    return this._submitButton;
   }
   _deleteDisableButton() {
-    this._formElement
-      .querySelector(this._config.submitButtonSelector)
-      .classList.remove(this._config.inactiveButtonClass);
-    this._formElement
-      .querySelector(this._config.submitButtonSelector)
-      .removeAttribute("disabled");
+    this._submitButton.classList.remove(this._config.inactiveButtonClass);
+    this._submitButton.removeAttribute("disabled");
   }
   enableValidation() {
     this._setEventListeners();
