@@ -63,15 +63,14 @@ const popupWithFormEditProfile = new PopupWithForm({
   popupSelector: ".popup_edit-profile",
   callback: (data) => {
     userInfo.setUserInfo(data);
-    const newPopup = new Popup(".popup_edit-profile");
-    newPopup.close();
-    validationEditForm.disableSubmitButton();
+    popupWithFormEditProfile.close();
   },
 });
 popupWithFormEditProfile.setEventListeners();
 
 buttonOpenEditProfileForm.addEventListener("click", () => {
   popupWithFormEditProfile.open();
+  validationEditForm.disableSubmitButton();
   popupName.value = userInfo.getUserInfo().name;
   popupStatus.value = userInfo.getUserInfo().about;
 });
@@ -83,7 +82,6 @@ const popupWithFormAddCard = new PopupWithForm({
   callback: (data) => {
     createCard(data);
     cardList.addItemPreend(createCard(data));
-    validationEditForm.disableSubmitButton();
   },
 });
 popupWithFormAddCard.setEventListeners();
@@ -91,4 +89,5 @@ const buttonOpenAddCardForm = document.querySelector(".add-button");
 ///открытие попапа добавления карточки
 buttonOpenAddCardForm.addEventListener("click", () => {
   popupWithFormAddCard.open();
+  validationAddCardForm.disableSubmitButton();
 });
