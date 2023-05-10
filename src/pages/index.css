@@ -11,10 +11,13 @@
 @import url(../blocks/profile/__row-alignment/profile__row-alignment.css);
 @import url(../blocks/profile/__name/profile__name.css);
 @import url(../blocks/profile/__image/profile__image.css);
+@import url(../blocks/profile/__edit/profile__edit.css);
+@import url(../blocks/profile/__edit-icon/profile__edit-icon.css);
 
 @import url(../blocks/edit-button/edit-button.css);
 @import url(../blocks/edit-button/__icon/edit-button__icon.css);
 
+@import url(../blocks/opacity-maker/opacity-maker.css);
 @import url(../blocks/add-button/add-button.css);
 @import url(../blocks/add-button/__icon/add-button__icon.css);
 
@@ -53,3 +56,5 @@
 @import url(../blocks/img-popup/_opened/img-popup_opened.css);
 
 @import url(../blocks/popup/_opened/popup_opened.css);
+
+@import url(../blocks/element/__numbers/element__numbers.css);

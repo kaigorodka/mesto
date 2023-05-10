@@ -4,6 +4,7 @@
   margin: 0;
   padding: 0;
   background-color: white;
+  position: relative;
 }
 .like-button:hover {
   opacity: 0.5;
