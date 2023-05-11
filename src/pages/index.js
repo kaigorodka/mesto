@@ -6,7 +6,7 @@ import { PopupWithImage } from "../components/PopupWithImage.js";
 import { PopupWithForm } from "../components/PopupWithForm.js";
 import { UserInfo } from "../components/UserInfo.js";
 import { validationConfig } from "../utils/constants.js";
-import { PopupConfirm } from "../components/PopupConfim.js";
+import { PopupConfirm } from "../components/PopupConfimation.js";
 import { Api } from "../components/ Api.js";
 
 // открытие img-popup
