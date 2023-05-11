@@ -1,11 +1,11 @@
 import { Popup } from "./Popup";
 export class PopupConfirm extends Popup {
-  constructor({ popupSelector, handleSubmit }) {
-    super(popupSelector);
+  constructor({ popupElement, handleSubmit }) {
+    super(popupElement);
     this._form = document
-      .querySelector(popupSelector)
+      .querySelector(popupElement)
       .querySelector(".popup__form");
-    this._popupSelector = document.querySelector(popupSelector);
+    this._popupSelector = document.querySelector(popupElement);
     this._handleSubmit = handleSubmit;
     this._cardElement = null;
   }
@@ -14,7 +14,6 @@ export class PopupConfirm extends Popup {
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       this._handleSubmit(this._cardElement); //при сабмите удалить карточку.
-      this.close();
     });
   }
   open(cardElement) {

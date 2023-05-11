@@ -3,23 +3,23 @@ export class Api {
     this._baseUrl = baseUrl;
     this._headers = headers;
   }
+  _getResponseData(res) {
+    if (!res.ok) {
+      return Promise.reject(`Ошибка: ${res.status}`);
+    }
+    return res.json();
+  }
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(
       (res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
+        return this._getResponseData(res);
       }
     );
   }
   getCardList() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(
       (res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
+        return this._getResponseData(res);
       }
     );
   }
@@ -32,10 +32,7 @@ export class Api {
         about: data.about,
       }),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
   editUserAvatar(data) {
@@ -46,10 +43,7 @@ export class Api {
         avatar: data.avatar,
       }),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
   addNewCard(data) {
@@ -61,10 +55,7 @@ export class Api {
         link: data.link,
       }),
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
   deleteCard(data) {
@@ -73,10 +64,7 @@ export class Api {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
   likeThePhoto(data) {
@@ -85,10 +73,7 @@ export class Api {
       method: "PUT",
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
   removeLike(data) {
@@ -96,10 +81,7 @@ export class Api {
       method: "DELETE",
       headers: this._headers,
     }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      return this._getResponseData(res);
     });
   }
 }

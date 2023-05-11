@@ -8,10 +8,10 @@ import { UserInfo } from "../components/UserInfo.js";
 import { validationConfig } from "../utils/constants.js";
 import { PopupConfirm } from "../components/PopupConfim.js";
 import { Api } from "../components/ Api.js";
-import { PopupEditAvatar } from "../components/PopupEditAvatar.js";
+
 // открытие img-popup
-const selectorOfImgPopup = ".img-popup";
-const newPopupWithImage = new PopupWithImage(selectorOfImgPopup);
+const elementOfImgPopup = ".img-popup";
+const newPopupWithImage = new PopupWithImage(elementOfImgPopup);
 newPopupWithImage.setEventListeners();
 function handleCardClick({ name, link }) {
   newPopupWithImage.open({
@@ -93,10 +93,9 @@ const popupName = formEditProfile.querySelector(".popup__input_type_name");
 const popupStatus = formEditProfile.querySelector(".popup__input_type_status");
 //то что происхожит при нажатии сабмита формы
 const popupWithFormEditProfile = new PopupWithForm({
-  popupSelector: ".popup_edit-profile",
+  popupElement: ".popup_edit-profile",
   callback: (data) => {
     editUserInfo(data);
-    popupWithFormEditProfile.close();
   },
 });
 popupWithFormEditProfile.setEventListeners();
@@ -111,7 +110,7 @@ buttonOpenEditProfileForm.addEventListener("click", () => {
 //создание карточки
 const popupNewCard = "#popup_new-item";
 const popupWithFormAddCard = new PopupWithForm({
-  popupSelector: popupNewCard,
+  popupElement: popupNewCard,
   callback: (data) => {
     addNewCard(data);
   },
@@ -126,10 +125,10 @@ buttonOpenAddCardForm.addEventListener("click", () => {
 
 // открытие попапа редактирования аватара
 const buttonEditAvatar = document.querySelector(".profile__edit");
-const selectorPopupEditAvatar = "#avatar-edit";
-const popupEditAvatar = new PopupEditAvatar({
-  popupSelector: selectorPopupEditAvatar,
-  handleSubmit: (data) => {
+const elementOfPopupEditAvatar = "#avatar-edit";
+const popupEditAvatar = new PopupWithForm({
+  popupElement: elementOfPopupEditAvatar,
+  callback: (data) => {
     editUserAvatar(data);
   },
 });
@@ -139,7 +138,7 @@ buttonEditAvatar.addEventListener("click", () => {
 });
 popupEditAvatar.setEventListeners();
 const popupEditAvatarForm = document
-  .querySelector(selectorPopupEditAvatar)
+  .querySelector(elementOfPopupEditAvatar)
   .querySelector(".popup__form");
 const validationAvatarEditForm = new FormValidator(
   validationConfig,
@@ -155,10 +154,10 @@ const api = new Api({
   },
 });
 
-const selectorOfPopupConfirm = "#confirm_popup";
+const elementOfPopupConfirm = "#confirm_popup";
 // открытие попапа подтверждения удаления картинки
 const newPopupConfirm = new PopupConfirm({
-  popupSelector: selectorOfPopupConfirm,
+  popupElement: elementOfPopupConfirm,
   handleSubmit: (card) => {
     handleSubmitApi(card);
     card.remove();
@@ -166,29 +165,18 @@ const newPopupConfirm = new PopupConfirm({
 });
 newPopupConfirm.setEventListeners();
 // получение данных пользователя
-api
-  .getUserInfo()
-  .then((data) => {
-    console.log(data);
-    const userInformation = data;
-    userInfo.setUserInfo(userInformation);
-  })
-  .catch((err) => {
-    console.log(`Ошибка: ${err}`);
-  });
-
 let userId;
-api.getUserInfo().then((data) => (userId = data._id));
-// отображение карточек с сервера
-api
-  .getCardList()
-  .then((items) => {
-    cardList.renderItems(items);
+
+Promise.all([api.getUserInfo(), api.getCardList()])
+  .then(([info, cards]) => {
+    userId = info._id;
+    const userInformation = info;
+    userInfo.setUserInfo(userInformation);
+    cardList.renderItems(cards);
   })
   .catch((err) => {
     console.log(err);
   });
-
 //редактирование имени и статуса
 function editUserInfo(data) {
   popupWithFormEditProfile.renderLoading(true);
@@ -196,13 +184,13 @@ function editUserInfo(data) {
     .editUserInfo(data)
     .then((res) => {
       userInfo.setUserInfo(res);
+      popupWithFormEditProfile.close();
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
       popupWithFormEditProfile.renderLoading(false);
-      popupWithFormEditProfile.close();
     });
 }
 
@@ -213,13 +201,13 @@ function editUserAvatar(data) {
     .editUserAvatar(data)
     .then((item) => {
       userInfo.setUserAvatar(item);
+      popupEditAvatar.close();
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
       popupEditAvatar.renderLoading(false);
-      popupEditAvatar.close();
     });
 }
 // создание карточки
@@ -229,16 +217,24 @@ function addNewCard(data) {
     .addNewCard(data)
     .then((item) => {
       cardList.addItemPreend(createCard(item));
+      popupWithFormAddCard.close();
     })
     .catch((err) => {
       console.log(`Ошибка: ${err}`);
     })
     .finally(() => {
       popupWithFormAddCard.renderLoading("ready");
-      popupWithFormAddCard.close();
     });
 }
 
-function handleSubmitApi(data) {
-  api.deleteCard(data);
+function handleSubmitApi(card) {
+  api
+    .deleteCard(card)
+    .then((res) => {
+      console.log(res);
+      newPopupConfirm.close();
+    })
+    .catch((err) => {
+      console.log(`Ошибка: ${err}`);
+    });
 }
