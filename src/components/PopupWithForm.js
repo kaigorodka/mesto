@@ -1,12 +1,10 @@
 import { Popup } from "./Popup";
 export class PopupWithForm extends Popup {
-  constructor({ popupElement, callback }) {
-    super(popupElement);
-    this._form = document
-      .querySelector(popupElement)
-      .querySelector(".popup__form");
+  constructor({ popupSelector, callback }) {
+    super(popupSelector);
+    this._popupElement = document.querySelector(popupSelector);
+    this._form = this._popupElement.querySelector(".popup__form");
     this._saveButton = this._form.querySelector(".popup__save-button");
-    this._popupSelector = document.querySelector(popupElement);
     this._callback = callback;
     this._inputList = this._popupElement.querySelectorAll(".popup__input");
     this._initialSaveButtonText = this._saveButton.textContent;
@@ -20,12 +18,10 @@ export class PopupWithForm extends Popup {
   }
   setEventListeners() {
     super.setEventListeners();
-    this._popupElement
-      .querySelector(".popup__form")
-      .addEventListener("submit", (evt) => {
-        evt.preventDefault();
-        this._callback(this._getInputValues());
-      });
+    this._form.addEventListener("submit", (evt) => {
+      evt.preventDefault();
+      this._callback(this._getInputValues());
+    });
   }
   close() {
     super.close();
@@ -34,8 +30,6 @@ export class PopupWithForm extends Popup {
   renderLoading(status) {
     if (status === true) {
       this._saveButton.textContent = "Сохранение...";
-    } else if (status === false) {
-      this._saveButton.textContent = this._initialSaveButtonText;
     } else {
       this._saveButton.textContent = this._initialSaveButtonText;
     }

@@ -93,7 +93,7 @@ const popupName = formEditProfile.querySelector(".popup__input_type_name");
 const popupStatus = formEditProfile.querySelector(".popup__input_type_status");
 //то что происхожит при нажатии сабмита формы
 const popupWithFormEditProfile = new PopupWithForm({
-  popupElement: ".popup_edit-profile",
+  popupSelector: ".popup_edit-profile",
   callback: (data) => {
     editUserInfo(data);
   },
@@ -110,7 +110,7 @@ buttonOpenEditProfileForm.addEventListener("click", () => {
 //создание карточки
 const popupNewCard = "#popup_new-item";
 const popupWithFormAddCard = new PopupWithForm({
-  popupElement: popupNewCard,
+  popupSelector: popupNewCard,
   callback: (data) => {
     addNewCard(data);
   },
@@ -127,7 +127,7 @@ buttonOpenAddCardForm.addEventListener("click", () => {
 const buttonEditAvatar = document.querySelector(".profile__edit");
 const elementOfPopupEditAvatar = "#avatar-edit";
 const popupEditAvatar = new PopupWithForm({
-  popupElement: elementOfPopupEditAvatar,
+  popupSelector: elementOfPopupEditAvatar,
   callback: (data) => {
     editUserAvatar(data);
   },
@@ -157,10 +157,9 @@ const api = new Api({
 const elementOfPopupConfirm = "#confirm_popup";
 // открытие попапа подтверждения удаления картинки
 const newPopupConfirm = new PopupConfirm({
-  popupElement: elementOfPopupConfirm,
+  popupSelector: elementOfPopupConfirm,
   handleSubmit: (card) => {
     handleSubmitApi(card);
-    card.remove();
   },
 });
 newPopupConfirm.setEventListeners();
@@ -232,6 +231,7 @@ function handleSubmitApi(card) {
     .deleteCard(card)
     .then((res) => {
       console.log(res);
+      card.remove();
       newPopupConfirm.close();
     })
     .catch((err) => {
